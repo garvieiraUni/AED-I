@@ -1,29 +1,27 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX 1000
+int main(){
+    char exp[1000], pilha[1000];
+    int i, p, vef;
 
-int main() {
-    char expr[MAX];
-    
-    while (scanf("%s", expr) != EOF) {  // Lê até o fim da entrada
-        int top = -1;
-        char stack[MAX];
-        int balanced = 1;
+    while(fgets(exp, sizeof(exp), stdin) != NULL){
+        p = 0;
+        vef = 1;
 
-        for (int i = 0; i < strlen(expr); i++) {
-            if (expr[i] == '(') {
-                stack[++top] = '(';
-            } else if (expr[i] == ')') {
-                if (top == -1) {
-                    balanced = 0;
+        for(i=0; exp[i]!='\0'; i++){
+            if(exp[i]=='(')
+                pilha[p++] = '(';
+            else if(exp[i]==')'){
+                if(p==0){
+                    vef = 0;
                     break;
                 }
-                top--;
+                p--;
             }
         }
 
-        if (balanced && top == -1)
+        if(vef==1 && p==0)
             printf("correct\n");
         else
             printf("incorrect\n");
@@ -31,3 +29,4 @@ int main() {
 
     return 0;
 }
+
